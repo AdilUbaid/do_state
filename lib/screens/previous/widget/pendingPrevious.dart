@@ -7,16 +7,11 @@ import '../../../db/model/dataModel.dart';
 import '../../../function/themeColor.dart';
 import 'package:do_state/screens/HomeScreen/widget/taskTab.dart';
 
-class PendingPrevious extends StatefulWidget {
+class PendingPrevious extends StatelessWidget {
   var homeIndex;
 
   PendingPrevious({super.key, required this.homeIndex});
 
-  @override
-  State<PendingPrevious> createState() => _PendingPreviousState();
-}
-
-class _PendingPreviousState extends State<PendingPrevious> {
   @override
   Widget build(BuildContext context) {
     pendingPrevious =
@@ -52,7 +47,7 @@ class _PendingPreviousState extends State<PendingPrevious> {
                           color: cGreen),
                       child: PendingView(
                         data: data,
-                        homeIndex: widget.homeIndex,
+                        homeIndex: homeIndex,
                       ),
                     ),
                   );
