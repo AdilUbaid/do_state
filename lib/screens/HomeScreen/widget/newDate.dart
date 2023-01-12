@@ -1,29 +1,24 @@
+import 'package:do_state/screens/HomeScreen/Provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:do_state/screens/HomeScreen/widget/addTaskEvent.dart';
 
-// import 'package:flutter/src/widgets/container.dart';
-// import 'package:flutter/src/widgets/framework.dart';
-
 import '../../../function/themeColor.dart';
-import '../../../main.dart';
 
 TextEditingController timeController = TextEditingController();
 
-class DateAndTime extends StatefulWidget {
-  const DateAndTime({super.key});
+class DateAndTime extends ConsumerWidget {
+  DateAndTime({super.key});
 
-  @override
-  State<DateAndTime> createState() => _DateAndTimeState();
-}
-
-class _DateAndTimeState extends State<DateAndTime> {
   DateTime newDatetime = DateTime.now();
 
   DateTime date = DateTime(2022, 12, 24, 05, 30);
+
   TimeOfDay time = TimeOfDay(hour: 10, minute: 30);
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final hours = time.hour.toString().padLeft(2, '0');
     final minutes = time.minute.toString().padLeft(2, '0');
 
@@ -54,18 +49,19 @@ class _DateAndTimeState extends State<DateAndTime> {
             fontSize: 17,
             color: rWhite),
         onTap: () {
-          datePickerFn();
-          setState(() {
-            // timeController.text =
-            //     DateFormat('dd MMM yyy hh:mm a').format(newDatetime);
-          });
+          datePickerFn(ref, context);
+          // setState(() {2
+          // timeController.text =1
+          //     DateFormat('dd MMM yyy hh:mm a').format(newDatetime);1
+          // });2
         },
         // cursorColor: cGreen,
       ),
     );
   }
 
-  datePickerFn() async {
+  datePickerFn(WidgetRef ref, BuildContext context) async {
+    final dateValue = ref.watch(provTime);
     DateTime? newDate = await showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -75,34 +71,41 @@ class _DateAndTimeState extends State<DateAndTime> {
     if (newDate == null) {
       return;
     }
-    setState(() {
-      date = newDate;
-    });
-    timePickerFn();
+
+    // setState(() {
+    ref.read(provTime.notifier).state = newDate;
+
+    date = newDate;
+    // });
+    timePickerFn(context);
   }
 
-  timePickerFn() async {
+  timePickerFn(BuildContext context) async {
     TimeOfDay? newTIme = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
+      // context: context,
+      initialTime: TimeOfDay.now(), context: context,
     );
     if (newTIme == null) {
       return;
     }
     newDatetime =
         DateTime(date.year, date.month, date.day, newTIme.hour, newTIme.minute);
-    setState(() {
-      time = newTIme;
-      // print(DateFormat('yyy-MM-dd').format(date));
-      String ktime = newTIme.hour.toString() + '-' + newTIme.minute.toString();
-      // print(ktime);
-      timeController.text =
-          DateFormat('dd MMM yyy hh:mm a').format(newDatetime);
-      // print(newDatetime);
-      tempTime = newTIme;
-      tempDate = newDatetime;
-      // dateTime= newDatetime;
-      // newTIme = time.format(context);
-    });
+    timeController.text = DateFormat('dd MMM yyy hh:mm a').format(newDatetime);
+    // setState(() {
+
+    //   // print(DateFormat('yyy-MM-dd').format(date));1
+    //   // String ktime = newTIme.hour.toString() + '-' + newTIme.minute.toString();
+    //   // print(ktime);1
+
+    //   // print(newDatetime);1
+    //   // tempTime = newTIme;
+    //   // tempDate = newDatetime;
+    //   // dateTime= newDatetime;1
+    //   // newTIme = time.format(context);1
+    // });
+    time = newTIme;
+
+    tempTime = newTIme;
+    tempDate = newDatetime;
   }
 }

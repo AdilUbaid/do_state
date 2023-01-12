@@ -43,14 +43,7 @@ class TaskEventContainer extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // const Text(
-                    //   // "Today",
-                    //   '       ',
-                    //   style: TextStyle(
-                    //       fontWeight: FontWeight.bold,
-                    //       fontFamily: 'comic',
-                    //       fontSize: 26),
-                    // ),
+                    
                     Column(
                       children: [
                         Text(
@@ -101,21 +94,6 @@ class TaskEventContainer extends StatelessWidget {
                     )
                   ],
                 ),
-
-                // const Text(
-                //   'Task 1',
-                //   style: TextStyle(
-                //       fontWeight: FontWeight.bold,
-                //       fontFamily: 'comic',
-                //       fontSize: 20),
-                // ),
-                // const Text(
-                //   'Description',
-                //   style: TextStyle(
-                //       fontWeight: FontWeight.bold,
-                //       fontFamily: 'comic',
-                //       fontSize: 20),
-                // )
               ],
             ),
           ),
