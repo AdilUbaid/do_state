@@ -10,9 +10,14 @@ import 'complete_view.dart';
 List<TaskModel> donePrevious = [];
 List<TaskModel> pendingPrevious = [];
 
-class CmpltPrevious extends StatelessWidget {
+class CmpltPrevious extends StatefulWidget {
   const CmpltPrevious({super.key});
 
+  @override
+  State<CmpltPrevious> createState() => _CmpltPreviousState();
+}
+
+class _CmpltPreviousState extends State<CmpltPrevious> {
   @override
   
   Widget build(BuildContext context) {
@@ -60,6 +65,7 @@ class CmpltPrevious extends StatelessWidget {
           })
     ]);
   }
-}
 
+  
+}
 // }

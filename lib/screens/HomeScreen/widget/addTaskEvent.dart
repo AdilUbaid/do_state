@@ -16,7 +16,6 @@ TaskModel? taskTemp;
 DateTime tempDate = DateTime.now();
 TimeOfDay tempTime = TimeOfDay.now();
 
-// ignore: must_be_immutable
 class AddTaskEvent extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
   var data;
@@ -115,7 +114,6 @@ class _AddTaskEventState extends State<AddTaskEvent> {
                   child: EventImage(
                     data: widget.data,
                     mode: widget.mode,
-                    // mode: "AE",
                   )),
               Padding(
                 padding: const EdgeInsets.only(

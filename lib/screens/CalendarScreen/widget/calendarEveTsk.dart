@@ -4,9 +4,14 @@ import '../../taskView/TaskView.dart';
 import '../../../function/themeColor.dart';
 import 'calenderTask.dart';
 
-class CalendarEveTask extends StatelessWidget {
+class CalendarEveTask extends StatefulWidget {
   const CalendarEveTask({super.key});
 
+  @override
+  State<CalendarEveTask> createState() => _CalendarEveTaskState();
+}
+
+class _CalendarEveTaskState extends State<CalendarEveTask> {
   @override
   Widget build(BuildContext context) {
     final List<String> items;
@@ -31,9 +36,8 @@ class CalendarEveTask extends StatelessWidget {
               padding: const EdgeInsets.all(17),
               child: Column(
                 // ignore: prefer_const_constructors
-                children:  [
-                  CalenderTask(),
-                  // CalenderEvent()
+                children: const [CalenderTask(), 
+                // CalenderEvent()
                 ],
               )),
         ),
@@ -41,5 +45,4 @@ class CalendarEveTask extends StatelessWidget {
     );
   }
 }
-
 // }

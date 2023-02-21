@@ -3,13 +3,17 @@ import 'package:do_state/main.dart';
 import 'widget/eventContainer.dart';
 import '../../../function/themeColor.dart';
 
-// ignore: must_be_immutable
-class EventsView extends StatelessWidget {
+class EventsView extends StatefulWidget {
   var index;
 
   EventsView({super.key, this.data, this.index});
   var data;
 
+  @override
+  State<EventsView> createState() => _EventsViewState();
+}
+
+class _EventsViewState extends State<EventsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +31,7 @@ class EventsView extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: ListView(
             children: [
-              EventContainer(data: data, index: index),
+              EventContainer(data: widget.data, index: widget.index),
             ],
           ),
         ));

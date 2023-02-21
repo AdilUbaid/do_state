@@ -11,11 +11,16 @@ List<TaskModel> futureTaskArray = [];
 List<TaskModel> pastTaskArray = [];
 TaskModel? globNotifiData;
 
-class TaskTab extends StatelessWidget {
+class TaskTab extends StatefulWidget {
   TaskTab({super.key, required this.homeIndex});
 
   var homeIndex;
 
+  @override
+  State<TaskTab> createState() => _TaskTabState();
+}
+
+class _TaskTabState extends State<TaskTab> {
   @override
   Widget build(BuildContext context) {
     // int flag = 0;
@@ -57,7 +62,7 @@ class TaskTab extends StatelessWidget {
                         final data = sortedDayList[index2];
                         final Box<TaskModel> taskBox;
                         return TaskEventContainer(
-                          homeIndex: homeIndex,
+                          homeIndex: widget.homeIndex,
                           data: data,
                           index: index2,
                           id: data.id,

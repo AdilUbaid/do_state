@@ -5,14 +5,18 @@ import 'package:do_state/screens/SearchScreen/SearchHome.dart';
 import '../../../function/themeColor.dart';
 import '../../../main.dart';
 
-class SearchBar extends StatelessWidget {
+class SearchBar extends StatefulWidget {
   Function function;
 
   SearchBar({super.key, required this.function});
   // Function function;
 
-  final _SearchHomeController = TextEditingController();
+  @override
+  State<SearchBar> createState() => _SearchBarState();
+}
 
+class _SearchBarState extends State<SearchBar> {
+  final _SearchHomeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -48,10 +52,14 @@ class SearchBar extends StatelessWidget {
             hintStyle: TextStyle(color: Colors.grey)),
         onChanged: (value) {
           globSearchKey = value;
-          function(value, globAction);
+          widget.function(value, globAction);
           // search
         },
       ),
     );
   }
+
+  // void clearText() {
+
+  // }
 }

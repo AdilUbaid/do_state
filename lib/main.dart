@@ -5,7 +5,6 @@ import 'package:do_state/db/model/eventDataModel.dart';
 import 'package:do_state/function/taskSingle.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:do_state/screens/ScreenSplash/screenSplash.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 Future<void> main() async {
   List<DateTime> dateArray;
@@ -48,7 +47,7 @@ Future<void> main() async {
     }
   });
 
-  runApp(ProviderScope(child: MyApp()));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

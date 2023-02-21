@@ -8,9 +8,14 @@ import 'complete_view.dart';
 
 List<EventModel> eventDonePrevious = [];
 
-class EvntCmpltPrevious extends StatelessWidget {
+class EvntCmpltPrevious extends StatefulWidget {
   const EvntCmpltPrevious({super.key});
 
+  @override
+  State<EvntCmpltPrevious> createState() => _EvntCmpltPreviousState();
+}
+
+class _EvntCmpltPreviousState extends State<EvntCmpltPrevious> {
   @override
   Widget build(BuildContext context) {
     eventDonePrevious =
@@ -59,5 +64,4 @@ class EvntCmpltPrevious extends StatelessWidget {
     ]);
   }
 }
-
 // }

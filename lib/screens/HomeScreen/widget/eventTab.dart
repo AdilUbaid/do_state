@@ -11,10 +11,15 @@ List<EventModel> pastEventArray = [];
 DateTime notifiationTImeEvent = DateTime(2017, 9, 7);
 EventModel? globNotifiDataEvent;
 
-class EventTab extends StatelessWidget {
+class EventTab extends StatefulWidget {
   EventTab({super.key, required this.homeIndex});
   var homeIndex;
 
+  @override
+  State<EventTab> createState() => _EventTabState();
+}
+
+class _EventTabState extends State<EventTab> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -55,7 +60,7 @@ class EventTab extends StatelessWidget {
                         final data = sortedDayList[index2];
                         final Box<EventModel> eventBox;
                         return TaskEventContainer(
-                          homeIndex: homeIndex,
+                          homeIndex: widget.homeIndex,
                           data: data,
                           index: index2,
                           id: data.id,

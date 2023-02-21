@@ -34,7 +34,7 @@ class _ScreenHomeState extends State<ScreenHome>
 
     controller = TabController(length: 2, vsync: this);
     controller.addListener(() {
-      // setState(() {});
+      setState(() {});
     });
   }
 

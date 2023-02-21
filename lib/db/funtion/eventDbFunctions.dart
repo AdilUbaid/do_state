@@ -1,6 +1,9 @@
+import 'package:do_state/db/model/eventDataModel.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:do_state/db/model/eventDataModel.dart';
+
+// import '../model/eventDataModel.dart';
+// import 'package:do_state/db/model/eventDataModel.dart';
 
 ValueNotifier<List<EventModel>> eventListNotifier = ValueNotifier([]);
 

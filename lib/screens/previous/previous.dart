@@ -26,7 +26,7 @@ class _PreviousScreenState extends State<PreviousScreen>
 
     controller = TabController(length: 2, vsync: this);
     controller.addListener(() {
-      // setState(() {});
+      setState(() {});
     });
   }
 

@@ -1,31 +1,32 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../function/themeColor.dart';
 
 String imgeGlob = 'x';
 bool imgFlag = false;
-final ProvimgeGlob = StateProvider<String>((ref) => imgeGlob);
-final ProvimgFlag = StateProvider<bool>((ref) => imgFlag);
 
-class EventImage extends ConsumerWidget {
+class EventImage extends StatefulWidget {
   var data;
   var mode;
 
   EventImage({super.key, required this.data, required this.mode
       // required this.imageStatic,
       });
-  // const imageStatic;
+  // const imageStatic;       
 
-  // File? imagePath;
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final imageGlobEL = ref.watch(ProvimgeGlob);
-    final imageFlagEL = ref.watch(ProvimgFlag);
-    // final value = ref.watch(provCalTask);
+  State<EventImage> createState() => _EventImageState();
+}
+
+class _EventImageState extends State<EventImage> {
+  // File? imagePath;
+
+  // late String imgPath;
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 9, right: 9),
       child: Stack(
@@ -44,7 +45,7 @@ class EventImage extends ConsumerWidget {
                   // image: AssetImage(
                   //   'assets/image/wood-blog-placeholder.jpg',
                   // ),
-                  image: imageProvide(imageGlobEL, imageFlagEL,ref),
+                  image: imageProvide(),
                   fit: BoxFit.fitWidth
                   // scale: 0.9,
                   ),
@@ -56,11 +57,9 @@ class EventImage extends ConsumerWidget {
             // alignment: Alignment.bottomLeft,
             child: TextButton(
                 onPressed: () async {
-                  // imgeGlob = await pickImage(ref);
-                  ref.read(ProvimgeGlob.notifier).state = await pickImage(ref);
-                  imgeGlob = imageGlobEL;
+                  // imgPath = await pickImage();
+                  imgeGlob = await pickImage();
                   imgFlag = true;
-                  ref.read(ProvimgFlag.notifier).state = true;
                 },
                 child: Icon(
                   Icons.add_a_photo,
@@ -73,7 +72,7 @@ class EventImage extends ConsumerWidget {
     );
   }
 
-  Future<String> pickImage(WidgetRef ref) async {
+  Future<String> pickImage() async {
     final pickedimage = await ImagePicker().pickImage(
       source: ImageSource.gallery,
       maxWidth: 1800,
@@ -83,35 +82,33 @@ class EventImage extends ConsumerWidget {
       print('return zero');
       return 'error';
     } else {
-      // setState(() {
-      imgeGlob = pickedimage.path;
-      ref.read(ProvimgeGlob.notifier).state = pickedimage.path;
-
-      // });
+      setState(() {
+        imgeGlob = pickedimage.path;
+        // pickedimage.path = 'x';
+      });
       print(pickedimage.path);
       return pickedimage.path;
     }
   }
 
-  imageProvide(String imageGlobEL, bool imageFlagEL,WidgetRef ref) {
+  imageProvide() {
     print("THis is glob $imgeGlob");
 
-    if (imageFlagEL == false && mode == "AE") {
+    if (imgFlag == false && widget.mode == "AE") {
       return const AssetImage('assets/image/wood-blog-placeholder.jpg')
           as ImageProvider;
-    } else if (mode == "EE" && data == null) {
-      // imgeGlob = widget.data.imagePath;1
-      return FileImage(File(imageGlobEL));
-      // } else if ((widget.mode != "AE"&&widget.mode != "AT"||widget.mode != "ET") && imgeGlob == 'x') {1
-    } else if (mode == "EE" && imageGlobEL == 'x') {
-      ref.read(ProvimgeGlob.notifier).state =data.imagePath;
-      imgeGlob = data.imagePath;
-      return FileImage(File(imageGlobEL));
-    } else if (mode == "EE" && imageGlobEL != data.imagePath) {
-      // imgeGlob = widget.data.imagePath;1
-      return FileImage(File(imageGlobEL));
+    } else if (widget.mode == "EE" && widget.data == null) {
+      // imgeGlob = widget.data.imagePath;
+      return FileImage(File(imgeGlob));
+      // } else if ((widget.mode != "AE"&&widget.mode != "AT"||widget.mode != "ET") && imgeGlob == 'x') {
+    } else if (widget.mode == "EE" && imgeGlob == 'x') {
+      imgeGlob = widget.data.imagePath;
+      return FileImage(File(imgeGlob));
+    } else if (widget.mode == "EE" && imgeGlob != widget.data.imagePath) {
+      // imgeGlob = widget.data.imagePath;
+      return FileImage(File(imgeGlob));
     } else {
-      return FileImage(File(imageGlobEL));
+      return FileImage(File(imgeGlob));
     }
   }
 }
