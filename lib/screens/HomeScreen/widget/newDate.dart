@@ -55,10 +55,7 @@ class _DateAndTimeState extends State<DateAndTime> {
             color: rWhite),
         onTap: () {
           datePickerFn();
-          setState(() {
-            // timeController.text =
-            //     DateFormat('dd MMM yyy hh:mm a').format(newDatetime);
-          });
+          
         },
         // cursorColor: cGreen,
       ),

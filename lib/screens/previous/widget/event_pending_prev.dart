@@ -9,18 +9,12 @@ import '../../HomeScreen/widget/eventTab.dart';
 
 List<EventModel> eventPendingPrevious = [];
 
-class EvntPendingPrevious extends StatefulWidget {
+class EvntPendingPrevious extends StatelessWidget {
   var homeIndex;
 
   EvntPendingPrevious({super.key, required this.homeIndex});
 
-  @override
-  State<EvntPendingPrevious> createState() => _EvntPendingPreviousState();
-}
-
-class _EvntPendingPreviousState extends State<EvntPendingPrevious> {
   // get pastEventArray => null;
-
   @override
   Widget build(BuildContext context) {
     print("length ${pastEventArray.length}");
@@ -56,7 +50,7 @@ class _EvntPendingPreviousState extends State<EvntPendingPrevious> {
                           borderRadius: BorderRadius.circular(17),
                           color: cGreen),
                       child: PendingView(
-                        homeIndex: widget.homeIndex,
+                        homeIndex: homeIndex,
                         data: data,
                         mode: 'EE',
                       ),

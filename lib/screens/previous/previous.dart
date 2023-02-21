@@ -26,7 +26,7 @@ class _PreviousScreenState extends State<PreviousScreen>
 
     controller = TabController(length: 2, vsync: this);
     controller.addListener(() {
-      setState(() {});
+      // setState(() {});
     });
   }
 
@@ -40,14 +40,7 @@ class _PreviousScreenState extends State<PreviousScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: cBlack,
-      // appBar: AppBar(
-      //   excludeHeaderSemantics: true,
-
-      // automaticallyImplyLeading: false,
-      // backgroundColor: cBlack,
-      // elevation: 0,
-      // bottom:
-      // ),
+      
       body: SafeArea(
         child: Column(
           children: [

@@ -193,14 +193,3 @@ class _CalenderTaskState extends State<CalenderTask> {
   }
 }
 
-// taskOfDay(List<TaskModel> list) {
-//   // taskInDay.clear();
-//   for (int i = 0; i < list.length; i++) {
-//     DateTime tskDate = list[i].date;
-//     if (DateTime(tskDate.year, tskDate.month, tskDate.day) ==
-//         DateTime(focusedDay.year, focusedDay.month, focusedDay.day)) {
-//       taskInDay.add(list[i]);
-//       print("look ${taskInDay[0].date}");
-//     }
-//   }
-// }

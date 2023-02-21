@@ -7,19 +7,15 @@ import 'package:do_state/main.dart';
 import '../../../function/themeColor.dart';
 import 'SearchViewContainer.dart';
 
-class SearchView extends StatefulWidget {
+class SearchView extends StatelessWidget {
   var data;
 
   var index;
 
   SearchView({super.key, required this.data, this.index});
 
-  @override
-  State<SearchView> createState() => _SearchViewState();
-}
-
-class _SearchViewState extends State<SearchView> {
   bool isVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,7 +25,7 @@ class _SearchViewState extends State<SearchView> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Visibility(
-              visible: visibility(widget.index),
+              visible: visibility(index),
               child: const Center(
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 10),
@@ -53,7 +49,7 @@ class _SearchViewState extends State<SearchView> {
                     Row(
                       children: [
                         Text(
-                          widget.data.description,
+                          data.description,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontFamily: 'comic',
@@ -65,14 +61,14 @@ class _SearchViewState extends State<SearchView> {
                           padding: const EdgeInsets.only(top: 3, left: 10),
                           child: Icon(
                             Icons.circle,
-                            color: colorSearch(widget.data.priority),
+                            color: colorSearch(data.priority),
                             size: 17,
                           ),
                         ),
                       ],
                     ),
                     Text(
-                      DateFormat('dd MMM yyy hh mm a').format(widget.data.date),
+                      DateFormat('dd MMM yyy hh mm a').format(data.date),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: rBlack,
@@ -87,9 +83,9 @@ class _SearchViewState extends State<SearchView> {
                 await showDialog(
                     context: context,
                     builder: (_) => SearchViewContainer(
-                          data: widget.data,
-                          index: widget.index,
-                          id: widget.data.id,
+                          data: data,
+                          index: index,
+                          id: data.id,
                         ));
               },
             )
@@ -100,19 +96,6 @@ class _SearchViewState extends State<SearchView> {
   }
 
   // Widget searchViewContainer(){
-  //   return Container(
-  //               // height: 50,
-  //               decoration: BoxDecoration(
-  //                   borderRadius: BorderRadius.circular(17), color: cGreen),
-  //               child: TaskViewContainer(
-  //                   data: widget.data,
-  //                   index: widget.index,
-  //                   // id:id
-  //                 )
-
-  // //   );
-  // }
-
   bool visibility(index) {
     if (index == 0) {
       return isVisible = true;
