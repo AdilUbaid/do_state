@@ -6,8 +6,8 @@ import 'widget/navigation_privacypolicy.dart';
 import 'widget/share_navigation.dart';
 import 'widget/terms_and_conditions.dart';
 
-class NavigationDrawer extends StatelessWidget {
-  const NavigationDrawer({super.key});
+class NavigationDrawerx extends StatelessWidget {
+  const NavigationDrawerx({super.key});
 
   @override
   Widget build(BuildContext context) {

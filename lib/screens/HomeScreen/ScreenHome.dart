@@ -72,7 +72,7 @@ class _ScreenHomeState extends State<ScreenHome>
     });
 
     return Scaffold(
-      drawer: NavigationDrawer(),
+      drawer: NavigationDrawerx(),
       backgroundColor: cBlack,
       appBar: AppBar(
         toolbarHeight: 45,

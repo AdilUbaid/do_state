@@ -8,27 +8,19 @@ import '../HomeScreen/ScreenHome.dart';
 
 // import '../db/funtion/eventDBFunctions.dart';
 
-class ScreenSplash extends StatefulWidget {
+class ScreenSplash extends StatelessWidget {
   const ScreenSplash({super.key});
 
+//   @override
   @override
-  State<ScreenSplash> createState() => _SplashState();
-}
-
-class _SplashState extends State<ScreenSplash> {
-  @override
-  void initState() {
+  Widget build(BuildContext context) {
     getAllTask();
     getAllEvent();
-    super.initState();
+    // super.initState();
     Future.delayed(const Duration(seconds: 1)).then((value) {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: ((ctx) => ScreenHome())));
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: cGreen,
       body: // Figma Flutter Generator SplashWidget - FRAME

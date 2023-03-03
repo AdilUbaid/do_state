@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../../../function/themeColor.dart';
-import '../../../main.dart';
 import '../../EventsView/widget/tskEvntBottom.dart';
 import '../../HomeScreen/widget/button.dart';
 
