@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../SearchHome.dart';
 
 DateTimeRange dateRange =
-    DateTimeRange(start: DateTime.now(), end: DateTime(2022, 12, 25));
+    DateTimeRange(start: DateTime.now(), end: DateTime(2025, 12, 25));
 
 Future picRange(BuildContext context, Function function) async {
   DateTimeRange? newDateRange = await showDateRangePicker(

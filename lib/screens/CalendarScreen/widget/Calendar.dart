@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+import '../../../controller/calendar/calendar_bloc.dart';
 import '../../../function/themeColor.dart';
 import 'calenderTask.dart';
 
@@ -26,28 +28,32 @@ class _CalendarState extends State<Calendar> {
           child: Container(
             // decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
             height: 380,
-            child: TableCalendar(
-              focusedDay: selectedDay,
-              firstDay: DateTime(1990),
-              lastDay: DateTime(2050),
-              calendarFormat: CalendarFormat.month,
-              onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                setState(() {
-                  selectedDay = selectDay;
-                  focusedDay = focusDay;
-                 
-                  pickedDateNotifier.value = focusDay;
-                  // print('look for focus day $focusDay');
-                  // print("look for notifier${pickedDateNotifier}");
-                  // taskOfDay(globTaskList);
-                });
-                // taskOfDay();
-              },
-              calendarStyle: (CalendarStyle(isTodayHighlighted: true)),
-              selectedDayPredicate: (DateTime date) {
-                // print("this is focus day $focusedDay");
-                
-                return isSameDay(selectedDay, date);
+            child: BlocBuilder<CalendarBloc, CalendarState>(
+              builder: (context, state) {
+                return TableCalendar(
+                  focusedDay: selectedDay,
+                  firstDay: DateTime(1990),
+                  lastDay: DateTime(2050),
+                  calendarFormat: CalendarFormat.month,
+                  onDaySelected: (DateTime selectDay, DateTime focusDay) {
+                    // setState(() {
+                      selectedDay = selectDay;
+                      focusedDay = focusDay;
+
+                      pickedDateNotifier.value = focusDay;
+                      // print('look for focus day $focusDay');
+                      // print("look for notifier");
+                      // taskOfDay(globTaskList);
+                    // });
+                    // taskOfDay();
+                  },
+                  calendarStyle: (CalendarStyle(isTodayHighlighted: true)),
+                  selectedDayPredicate: (DateTime date) {
+                    // print("this is focus day ");
+
+                    return isSameDay(selectedDay, date);
+                  },
+                );
               },
             ),
           ),

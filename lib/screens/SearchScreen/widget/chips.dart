@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:do_state/screens/SearchScreen/SearchHome.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../controller/search_screen/chip/chip_bloc.dart';
 import '../../../function/themeColor.dart';
-// import '../../../main.dart';
 
-int x = 10;
+// int x = 10;
 
-class chips extends StatefulWidget {
+class chips extends StatelessWidget {
   String title;
   String actionKey;
   Function function;
@@ -19,11 +20,6 @@ class chips extends StatefulWidget {
       required this.function,
       this.range});
 
-  @override
-  State<chips> createState() => _chipsState();
-}
-
-class _chipsState extends State<chips> {
   bool isSelected = false;
 
   @override
@@ -32,38 +28,35 @@ class _chipsState extends State<chips> {
       padding: const EdgeInsets.only(top: 8, left: 3, right: 3),
       child: Container(
         height: 30,
-        child: FilterChip(
-            label: Text(
-              widget.title,
-              style: TextStyle(color: rBlack, fontFamily: 'comic'),
-            ),
-            selected: isSelected,
-            backgroundColor: Colors.grey,
-            selectedColor: Color.fromARGB(255, 255, 255, 255),
-            onSelected: (newState) {
-              // widget.function('tsk', widget.actionKey);
-              if (!isSelected)
-                widget.function(globSearchKey, globAction = widget.actionKey,
-                    widget.actionKey);
-              else
-                widget.function(
-                  globSearchKey,
-                );
+        child: BlocBuilder<ChipBloc, ChipState>(
+          builder: (context, state) {
+            return FilterChip(
+                label: Text(
+                  title,
+                  style: TextStyle(color: rBlack, fontFamily: 'comic'),
+                ),
+                selected: state.isSelected,
+                backgroundColor: Colors.grey,
+                selectedColor: Color.fromARGB(255, 255, 255, 255),
+                onSelected: (newState) {
+                  // widget.function('tsk', widget.actionKey);
+                  if (!isSelected)
+                    function(globSearchKey, globAction = actionKey, actionKey);
+                  else
+                    function(
+                      globSearchKey,
+                    );
+                  // setState(() {
+                    // context.read<ChipBloc>().add(OnTap());
+                  state.isSelected = newState;
+                  isSelected = state.isSelected;
+                  
 
-              // actionSelectChip(widget.actionKey);
-              setState(() {
-                isSelected = newState;
-              });
-            }),
+                  // });
+                });
+          },
+        ),
       ),
     );
   }
-
-  // void actionSelectChip(String action) {
-  //   switch (action) {
-  //     case 'H':
-
-  //       break;
-  //   }
-  // }
 }

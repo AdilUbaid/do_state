@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:do_state/db/model/dataModel.dart';
 import 'package:do_state/db/model/eventDataModel.dart';
 import 'package:do_state/function/taskSingle.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:do_state/screens/ScreenSplash/screenSplash.dart';
+
+import 'controller/calendar/calendar_bloc.dart';
+import 'controller/search_screen/chip/chip_bloc.dart';
 
 Future<void> main() async {
   List<DateTime> dateArray;
@@ -55,13 +59,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorSchemeSeed: Color.fromARGB(255, 255, 255, 255),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => ChipBloc(),
+        ),
+        BlocProvider(
+          create: (context) => CalendarBloc(),
+        ),
+        // BlocProvider(
+        //   create: (context) => SubjectBloc(),
+        // ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorSchemeSeed: Color.fromARGB(255, 255, 255, 255),
+        ),
+        home: ScreenSplash(),
+        supportedLocales: [Locale('en', 'US')],
       ),
-      home: ScreenSplash(),
-      supportedLocales: [Locale('en', 'US')],
     );
   }
 }

@@ -1,16 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:do_state/screens/SearchScreen/SearchHome.dart';
-// import 'package:do_state/screens/SearchScreen/SearchHome.dart';
 
 import '../../../function/themeColor.dart';
-import '../../../main.dart';
 
-class SearchBar extends StatelessWidget {
+class SearchBar extends StatefulWidget {
   Function function;
 
   SearchBar({super.key, required this.function});
-  // Function function;
 
+  @override
+  State<SearchBar> createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
   final _SearchHomeController = TextEditingController();
 
   @override
@@ -48,7 +52,8 @@ class SearchBar extends StatelessWidget {
             hintStyle: TextStyle(color: Colors.grey)),
         onChanged: (value) {
           globSearchKey = value;
-          function(value, globAction);
+          widget.function(value, globAction);
+          log('on click works');
           // search
         },
       ),
