@@ -26,7 +26,7 @@ class CalendarEveTask extends StatelessWidget {
               padding: const EdgeInsets.all(17),
               child: Column(
                 // ignore: prefer_const_constructors
-                children: const [CalenderTask(), 
+                children:  [CalenderTask(), 
                 ],
               )),
         ),

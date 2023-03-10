@@ -1,3 +1,5 @@
+// import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
@@ -16,7 +18,7 @@ TaskModel? taskTemp;
 DateTime tempDate = DateTime.now();
 TimeOfDay tempTime = TimeOfDay.now();
 
-class AddTaskEvent extends StatefulWidget {
+class AddTaskEvent extends StatelessWidget {
   // ignore: prefer_typing_uninitialized_variables
   var data;
   // ignore: prefer_typing_uninitialized_variables
@@ -24,25 +26,120 @@ class AddTaskEvent extends StatefulWidget {
   String mode;
   AddTaskEvent({super.key, this.homeIndex = 0, required this.mode, this.data});
 
-  @override
-  State<AddTaskEvent> createState() => _AddTaskEventState();
-}
-
-class _AddTaskEventState extends State<AddTaskEvent> {
   TextEditingController descriptionController = TextEditingController();
+
   TextEditingController locationController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    print("this is mode ${widget.mode}");
-    // (widget.homeIndex == 1) ? widget.mode == 'AE' : widget.mode == 'AT';
-    if (widget.mode == 'ET' || widget.mode == 'EE') {
-      descriptionController.text = widget.data.description;
-      locationController.text = widget.data.location;
-      timeController.text =
-          DateFormat('dd MMM yyy hh:mm a').format(widget.data.date);
-      if (widget.data != null) {
-        tempDate = widget.data.date;
+    bool hideImg(homeIndex) {
+      if (homeIndex == 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    void taskAdd(mode, BuildContext context) async {
+      final _id = DateTime.now().toString();
+      final _description = descriptionController.text.trim();
+      // final _date = 'ddate';
+      final _date = tempDate;
+      final _time = 'ttime';
+      final _location = locationController.text.trim();
+      // final _priority = false;
+      final _alarm = false;
+
+      final _task = TaskModel(
+          id: _id,
+          description: _description,
+          date: _date,
+          time: _time,
+          location: _location,
+          priority: _priority,
+          isAlarm: _alarm);
+      if (mode == 'AT') {
+        addTask(_task);
+      } else if (mode == 'ET') {
+        editTask(data.id, context, _task);
+        Navigator.of(context).pop();
+      }
+      // print(_task.date);
+      // print('$_id look time');
+    }
+
+    void eventAdd(mode, BuildContext context) async {
+      final _imagePath = imgeGlob;
+      final _id = DateTime.now().toString();
+      final _description = descriptionController.text.trim();
+      final _date = tempDate;
+      final _time = 'ttime';
+      final _location = locationController.text.trim();
+      // final _priority = false;
+      final _alarm = false;
+
+      final _event = EventModel(
+          id: _id,
+          description: _description,
+          time: _time,
+          location: _location,
+          priority: _priority,
+          isAlarm: _alarm,
+          imagePath: _imagePath,
+          date: _date);
+      print("image glob is x");
+      imgFlag = false;
+      // setState(() {
+      imgeGlob = 'x';
+      imgFlag = false;
+      // });
+
+      if (mode == 'AE') {
+        addEvent(_event);
+      } else if (mode == 'EE') {
+        editEvent(data.id, context, _event);
+        Navigator.of(context).pop();
+      }
+
+      // print('$_date look date');
+      // print('$_time  look time');
+      // print("aluva");
+    }
+
+    void addData(int homeIndex) {
+      if (homeIndex == 0) {
+        print("INdex at task  1");
+        taskAdd(mode, context);
+      } else if (homeIndex == 1) {
+        print("INdex at event  2");
+        eventAdd(mode, context);
+      }
+    }
+
+    String modeFind(
+      String mode,
+    ) {
+      if (mode == 'AT') {
+        return 'Add task';
+      } else if (mode == 'AE') {
+        return 'Add event';
+      } else if (mode == 'R') {
+        return 'Reschedule';
+      } else if (mode == 'ET') {
+        return 'Edit task';
+      } else if (mode == 'EE') {
+        return 'Edit event';
+      }
+      return 'X';
+    }
+
+    print("this is mode $mode");
+    if (mode == 'ET' || mode == 'EE') {
+      descriptionController.text = data.description;
+      locationController.text = data.location;
+      timeController.text = DateFormat('dd MMM yyy hh:mm a').format(data.date);
+      if (data != null) {
+        tempDate = data.date;
       }
     }
 
@@ -71,7 +168,7 @@ class _AddTaskEventState extends State<AddTaskEvent> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    modeFind(widget.mode),
+                    modeFind(mode),
                     style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontFamily: 'comic',
@@ -80,14 +177,14 @@ class _AddTaskEventState extends State<AddTaskEvent> {
                   ),
                   TextButton(
                       onPressed: () {
-                        addData(widget.homeIndex);
+                        addData(homeIndex);
 
                         // print("${descriptionController.text}");
                         // print("${locationController.text}");
                         Navigator.pop(context);
-                        setState(() {
-                          imgeGlob = 'x';
-                        });
+                        // setState(() {
+                        imgeGlob = 'x';
+                        // });
                       },
                       child: Container(
                         width: 65,
@@ -110,10 +207,10 @@ class _AddTaskEventState extends State<AddTaskEvent> {
                 ],
               ),
               Offstage(
-                  offstage: hideImg(widget.homeIndex),
+                  offstage: hideImg(homeIndex),
                   child: EventImage(
-                    data: widget.data,
-                    mode: widget.mode,
+                    data: data,
+                    mode: mode,
                   )),
               Padding(
                 padding: const EdgeInsets.only(
@@ -246,106 +343,5 @@ class _AddTaskEventState extends State<AddTaskEvent> {
         ),
       ),
     );
-  }
-
-  bool hideImg(homeIndex) {
-    if (homeIndex == 0) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  String modeFind(
-    String mode,
-  ) {
-    if (mode == 'AT') {
-      return 'Add task';
-    } else if (mode == 'AE') {
-      return 'Add event';
-    } else if (mode == 'R') {
-      return 'Reschedule';
-    } else if (mode == 'ET') {
-      return 'Edit task';
-    } else if (mode == 'EE') {
-      return 'Edit event';
-    }
-    return 'X';
-  }
-
-  void addData(int homeIndex) {
-    if (homeIndex == 0) {
-      print("INdex at task  1");
-      taskAdd(widget.mode);
-    } else if (homeIndex == 1) {
-      print("INdex at event  2");
-      eventAdd(widget.mode);
-    }
-  }
-
-  void taskAdd(mode) async {
-    final _id = DateTime.now().toString();
-    final _description = descriptionController.text.trim();
-    // final _date = 'ddate';
-    final _date = tempDate;
-    final _time = 'ttime';
-    final _location = locationController.text.trim();
-    // final _priority = false;
-    final _alarm = false;
-
-    final _task = TaskModel(
-        id: _id,
-        description: _description,
-        date: _date,
-        time: _time,
-        location: _location,
-        priority: _priority,
-        isAlarm: _alarm);
-    if (mode == 'AT') {
-      addTask(_task);
-    } else if (mode == 'ET') {
-      editTask(widget.data.id, context, _task);
-      Navigator.of(context).pop();
-    }
-    // print(_task.date);
-    // print('$_id look time');
-  }
-
-  void eventAdd(mode) async {
-    final _imagePath = imgeGlob;
-    final _id = DateTime.now().toString();
-    final _description = descriptionController.text.trim();
-    final _date = tempDate;
-    final _time = 'ttime';
-    final _location = locationController.text.trim();
-    // final _priority = false;
-    final _alarm = false;
-
-    final _event = EventModel(
-        id: _id,
-        description: _description,
-        time: _time,
-        location: _location,
-        priority: _priority,
-        isAlarm: _alarm,
-        imagePath: _imagePath,
-        date: _date);
-    print("image glob is x");
-    imgFlag = false;
-    setState(() {
-      imgeGlob = 'x';
-      imgFlag = false;
-    });
-
-    if (mode == 'AE') {
-      addEvent(_event);
-    } else if (mode == 'EE') {
-      editEvent(widget.data.id, context, _event);
-      Navigator.of(context).pop();
-    }
-
-    // print('$_date look date');
-    // print('$_time  look time');
-    // print("aluva");
   }
 }

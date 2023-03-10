@@ -26,15 +26,10 @@ class CalendarScreen extends StatelessWidget {
           ],
         ),
         body: Column(
-          // children: [Calendar(), CalendarEveTask()],
           // ignore: prefer_const_literals_to_create_immutables
           children: [
-            const Calendar(),
-            // ignore: prefer_const_constructors
-            // Padding(
-            //   padding: const EdgeInsets.only(left: 10, right: 10),
-            //   child: const CalenderTask(),
-            // ),
+             Calendar(),
+            
             CalenderTask(),
           ],
         ));

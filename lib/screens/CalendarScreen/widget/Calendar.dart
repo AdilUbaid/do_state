@@ -9,14 +9,9 @@ import 'calenderTask.dart';
 
 DateTime focusedDay = DateTime.now();
 
-class Calendar extends StatefulWidget {
-  const Calendar({super.key});
+class Calendar extends StatelessWidget {
+  Calendar({super.key});
 
-  @override
-  State<Calendar> createState() => _CalendarState();
-}
-
-class _CalendarState extends State<Calendar> {
   DateTime selectedDay = DateTime.now();
 
   @override
@@ -30,28 +25,33 @@ class _CalendarState extends State<Calendar> {
             height: 380,
             child: BlocBuilder<CalendarBloc, CalendarState>(
               builder: (context, state) {
-                return TableCalendar(
-                  focusedDay: selectedDay,
-                  firstDay: DateTime(1990),
-                  lastDay: DateTime(2050),
-                  calendarFormat: CalendarFormat.month,
-                  onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                    // setState(() {
-                      selectedDay = selectDay;
-                      focusedDay = focusDay;
+                return BlocBuilder<CalendarBloc, CalendarState>(
+                  builder: (context, state) {
+                    return TableCalendar(
+                      focusedDay: selectedDay,
+                      firstDay: DateTime(1990),
+                      lastDay: DateTime(2050),
+                      calendarFormat: CalendarFormat.month,
+                      onDaySelected: (DateTime selectDay, DateTime focusDay) {
+                        // setState(() {
+                        context.read<CalendarBloc>().add(OnTapEvent());
+                        selectedDay = selectDay;
+                        focusedDay = focusDay;
 
-                      pickedDateNotifier.value = focusDay;
-                      // print('look for focus day $focusDay');
-                      // print("look for notifier");
-                      // taskOfDay(globTaskList);
-                    // });
-                    // taskOfDay();
-                  },
-                  calendarStyle: (CalendarStyle(isTodayHighlighted: true)),
-                  selectedDayPredicate: (DateTime date) {
-                    // print("this is focus day ");
+                        pickedDateNotifier.value = focusDay;
+                        // print('look for focus day $focusDay');
+                        // print("look for notifier");
+                        // taskOfDay(globTaskList);
+                        // });
+                        // taskOfDay();
+                      },
+                      calendarStyle: (CalendarStyle(isTodayHighlighted: true)),
+                      selectedDayPredicate: (DateTime date) {
+                        // print("this is focus day ");
 
-                    return isSameDay(selectedDay, date);
+                        return isSameDay(selectedDay, date);
+                      },
+                    );
                   },
                 );
               },
@@ -60,13 +60,17 @@ class _CalendarState extends State<Calendar> {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            DateFormat('dd MMMM yyy').format(focusedDay),
-            style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontFamily: 'comic',
-                fontSize: 23,
-                color: rWhite),
+          child: BlocBuilder<CalendarBloc, CalendarState>(
+            builder: (context, state) {
+              return Text(
+                DateFormat('dd MMMM yyy').format(state.focusedDay),
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'comic',
+                    fontSize: 23,
+                    color: rWhite),
+              );
+            },
           ),
         )
       ],

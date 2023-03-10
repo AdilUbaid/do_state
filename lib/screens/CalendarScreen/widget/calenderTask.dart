@@ -11,16 +11,16 @@ import '../../SearchScreen/widget/searchView.dart';
 DateTime newddate = DateTime.now();
 ValueNotifier<DateTime> pickedDateNotifier = ValueNotifier(DateTime.now());
 
-class CalenderTask extends StatefulWidget {
-  const CalenderTask({super.key});
+class CalenderTask extends StatelessWidget {
+   CalenderTask({super.key});
 
-  @override
-  State<CalenderTask> createState() => _CalenderTaskState();
+//   @override
+//   State<CalenderTask> createState() => _CalenderTaskState();
 
-  // void tskEvntOfday() {}
-}
+//   // void tskEvntOfday() {}
+// }
 
-class _CalenderTaskState extends State<CalenderTask> {
+// class _CalenderTaskState extends State<CalenderTask> {
   bool isExpandedk = true;
   bool taskIndex = true;
   bool eventIndex = true;
@@ -29,24 +29,20 @@ class _CalenderTaskState extends State<CalenderTask> {
       Hive.box<TaskModel>('task_db').values.toList();
 
   late List<TaskModel> displayTaskSearchList = [];
-  // List<TaskModel>.from(allTaskSearchList);
 
   final List<EventModel> allEventSearchList =
       Hive.box<EventModel>('event_db').values.toList();
 
   late List<EventModel> displayEventSearchList = [];
 
-  // List<EventModel>.from(allEventSearchList);
   @override
   Widget build(BuildContext context) {
-    // tskEvntOfday();
 
     return Expanded(
         child: ValueListenableBuilder(
             valueListenable: pickedDateNotifier,
             builder: (BuildContext context, DateTime value, Widget? child) {
               return ListView.builder(
-                // physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
                 itemBuilder: (BuildContext context, int count) {
                   tskEvntOfday();
@@ -62,10 +58,7 @@ class _CalenderTaskState extends State<CalenderTask> {
                                 elevation: 0,
                                 expansionCallback:
                                     (int index, bool isExpanded) {
-                                  setState(() {
-                                    taskIndex = !(indexExpPanel(count));
-                                    // taskIndex = !eventIndex;
-                                  });
+                                  taskIndex = !(indexExpPanel(count));
                                 },
                                 children: [
                                   ExpansionPanel(
@@ -192,4 +185,3 @@ class _CalenderTaskState extends State<CalenderTask> {
     }
   }
 }
-

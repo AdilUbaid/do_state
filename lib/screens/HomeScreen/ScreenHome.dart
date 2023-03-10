@@ -48,15 +48,7 @@ class _ScreenHomeState extends State<ScreenHome>
   Widget build(BuildContext context) {
     Timer.periodic(const Duration(minutes: 1), (timer) {
       DateTime temptime = DateTime.now();
-      // print('inside periodic');
-      // print(DateTime(temptime.year, temptime.month, temptime.day,
-      //     temptime.hour, temptime.minute));
-      // print(DateTime(
-      //     notifiationTIme.year,
-      //     notifiationTIme.month,
-      //     notifiationTIme.day,
-      //     notifiationTIme.hour,
-      //     notifiationTIme.minute));
+      
       if (DateTime(temptime.year, temptime.month, temptime.day, temptime.hour,
               temptime.minute) ==
           DateTime(

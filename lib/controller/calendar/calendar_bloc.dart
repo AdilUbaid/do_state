@@ -6,8 +6,8 @@ part 'calendar_state.dart';
 
 class CalendarBloc extends Bloc<CalendarEvent, CalendarState> {
   CalendarBloc() : super(CalendarInitial()) {
-    on<CalendarEvent>((event, emit) {
-      // TODO: implement event handler
+    on<OnTapEvent>((event, emit) {
+      return emit(CalendarState(selectedDay: state.selectedDay, focusedDay: state.focusedDay));
     });
   }
 }
