@@ -7,20 +7,11 @@ import '../../../db/model/eventDataModel.dart';
 import '../../../function/themeColor.dart';
 import '../../SearchScreen/widget/searchView.dart';
 
-// List<TaskModel> taskInDay = [];
 DateTime newddate = DateTime.now();
 ValueNotifier<DateTime> pickedDateNotifier = ValueNotifier(DateTime.now());
 
 class CalenderTask extends StatelessWidget {
    CalenderTask({super.key});
-
-//   @override
-//   State<CalenderTask> createState() => _CalenderTaskState();
-
-//   // void tskEvntOfday() {}
-// }
-
-// class _CalenderTaskState extends State<CalenderTask> {
   bool isExpandedk = true;
   bool taskIndex = true;
   bool eventIndex = true;

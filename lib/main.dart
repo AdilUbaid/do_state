@@ -1,3 +1,4 @@
+import 'package:do_state/controller/search_screen/search_bar/search_bar_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -8,6 +9,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:do_state/screens/ScreenSplash/screenSplash.dart';
 
 import 'controller/calendar/calendar_bloc.dart';
+import 'controller/screen_home/add_image/add_image_bloc.dart';
 import 'controller/search_screen/chip/chip_bloc.dart';
 
 Future<void> main() async {
@@ -66,6 +68,12 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CalendarBloc(),
+        ),
+        BlocProvider(
+          create: (context) => AddImageBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SearchBarBloc(),
         ),
         // BlocProvider(
         //   create: (context) => SubjectBloc(),

@@ -10,7 +10,7 @@ import 'package:do_state/screens/SearchScreen/widget/searchView.dart';
 import '../../function/themeColor.dart';
 
 String globSearchKey = '';
-String globAction = 'X';
+String globAction = 'X';  
 
 class SearchHome extends StatefulWidget {
   SearchHome({Key? key}) : super(key: key);
